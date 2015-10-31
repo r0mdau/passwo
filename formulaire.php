@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
+    <link rel="stylesheet" href="css/materialize.min.css">
 </head>
 <body>
 <!--[if lt IE 8]>
@@ -18,7 +18,7 @@
 <![endif]-->
 
 <div class="container">
-    <?=$carte?>
+    <?= $carte ?>
     <div class="row">
         <form class="col s6 offset-s3" method="post">
             <h3><?= _APP_NOM_ ?></h3>
@@ -32,24 +32,25 @@
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="password" type="password" name="password" class="validate">
+                    <input id="password" type="password" name="password" class="validate"
+                           placeholder="<?= _PASSWORD_TAILLE_REQUISE_ ?> caractères mininmum">
                     <label for="password">Mot de passe</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="pin" type="password" name="pin" class="validate" placeholder="4 digits">
+                    <input id="pin" type="password" name="pin" class="validate" placeholder="4 chiffres">
                     <label for="pin">PIN</label>
                 </div>
             </div>
             <div class="row">
-                <?=$bouton?>
+                <?= $bouton ?>
             </div>
         </form>
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/materialize.min.js"></script>
 </body>
 </html>

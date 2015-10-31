@@ -8,25 +8,22 @@ if (!Controller::tokenEstBienFormate()) Ordonnanceur::finDeTransaction('Token no
 
 if (Controller::tokenEstBienFormate() && Controller::formulaireEstValide()) {
     if (Controller::tokenVeritable($_POST['email'], $_GET['token'])) {
-        $donneesCryptees = array(
-            'email' => Hash::whirlpool($_POST['email']),
-            'password' => Hash::whirlpool($_POST['password']),
-            'pin' => Hash::whirlpool($_POST['pin'])
-        );
+        $donneesCryptees = Ordonnanceur::genererDonneesHachees($_POST);
         if (Modele::activerUtilisateur($donneesCryptees)) {
             Controller::supprimerToken($_POST['email']);
-            $_SESSION = array(
-                'dateCreationSession' => new DateTime(),
-                'email' => $_POST['email'],
-                'password' => $_POST['password'],
-                'pin' => $_POST['pin']
-            );
-            Ordonnanceur::redirigerVers('/administrer');
+            Ordonnanceur::connexionReussie($_POST);
         } else {
             Ordonnanceur::finDeTransaction('Les informations saisies dans le formulaire ne sont pas valides ou bien mauvais token associé à cet utilisateur.');
         }
     } else {
-        Ordonnanceur::finDeTransaction('Les informations saisies dans le formulaire ne sont pas valides ou bien mauvais token associé à cet utilisateur.');
+        Ordonnanceur::finDeTransaction('
+            Voici les causes possibles :
+            <ul>
+                <li>Les informations saisies dans le formulaire ne sont pas valides</li>
+                <li>Mauvais token associé à cet utilisateur.</li>
+                <li>Le token a expiré.</li>
+            </ul>
+        ');
     }
 }
 

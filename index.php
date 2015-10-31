@@ -2,25 +2,15 @@
 session_start();
 
 require_once('autoload.php');
-$carte = Ordonnanceur::genererCarte();
+$carte = Vue::genererCarte();
 $_SESSION = array();
 
 if (Controller::formulaireEstValide()) {
     Ordonnanceur::supprimerComptesInactifs();
-    $donneesCryptees = array(
-        'email' => Hash::whirlpool($_POST['email']),
-        'password' => Hash::whirlpool($_POST['password']),
-        'pin' => Hash::whirlpool($_POST['pin'])
-    );
+    $donneesCryptees = Ordonnanceur::genererDonneesHachees($_POST);
 
     if (Modele::utilisateurActifExiste($donneesCryptees)) {
-        $_SESSION = array(
-            'dateCreationSession' => new DateTime(),
-            'email' => $_POST['email'],
-            'password' => $_POST['password'],
-            'pin' => $_POST['pin']
-        );
-        Ordonnanceur::redirigerVers('/administrer');
+        Ordonnanceur::connexionReussie($_POST);
     }
 
     if (Ordonnanceur::creerCompte($donneesCryptees, $_POST['email'])) {
