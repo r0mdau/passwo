@@ -1,28 +1,20 @@
 <?php
 session_start();
+$_SESSION = array();
 
 require_once('autoload.php');
 
-function finDeTransaction()
-{
-    Ordonnanceur::redirigerVers('/');
-    $_SESSION = array();
-}
-
-if (!Controller::tokenEstBienFormate()) {
-    finDeTransaction();
-} else {
-    $_SESSION['token'] = $_GET['token'];
-}
+if (!Controller::tokenEstBienFormate()) Ordonnanceur::finDeTransaction('Token non valide.');
 
 if (Controller::tokenEstBienFormate() && Controller::formulaireEstValide()) {
-    if(Controller::tokenVeritable($_SESSION['token'])){
+    if (Controller::tokenVeritable($_POST['email'], $_GET['token'])) {
         $donneesCryptees = array(
             'email' => Hash::whirlpool($_POST['email']),
             'password' => Hash::whirlpool($_POST['password']),
             'pin' => Hash::whirlpool($_POST['pin'])
         );
-        if(Modele::activerUtilisateur($donneesCryptees)){
+        if (Modele::activerUtilisateur($donneesCryptees)) {
+            Controller::supprimerToken($_POST['email']);
             $_SESSION = array(
                 'dateCreationSession' => new DateTime(),
                 'email' => $_POST['email'],
@@ -31,10 +23,10 @@ if (Controller::tokenEstBienFormate() && Controller::formulaireEstValide()) {
             );
             Ordonnanceur::redirigerVers('/administrer');
         } else {
-            finDeTransaction();
+            Ordonnanceur::finDeTransaction('Les informations saisies dans le formulaire ne sont pas valides ou bien mauvais token associé à cet utilisateur.');
         }
     } else {
-        finDeTransaction();
+        Ordonnanceur::finDeTransaction('Les informations saisies dans le formulaire ne sont pas valides ou bien mauvais token associé à cet utilisateur.');
     }
 }
 

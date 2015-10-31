@@ -18,6 +18,7 @@
 <![endif]-->
 
 <div class="container">
+    <?=$carte?>
     <div class="row">
         <form class="col s6 offset-s3" method="post">
             <h3><?= _APP_NOM_ ?></h3>

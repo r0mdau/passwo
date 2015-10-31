@@ -32,14 +32,15 @@ class Controller
         return isset($_GET['token']) && !empty($_GET['token']) && preg_match('/^[a-z0-9]{'._TOKEN_TAILLE_.'}$/i', $_GET['token']);
     }
 
-    public static function tokenVeritable($token)
+    public static function tokenVeritable($email, $token)
     {
         $booleenFetch = false;
-        $tokenApc = apc_fetch($_POST['email'], $booleenFetch);
-        if ($booleenFetch && $tokenApc == $token) {
-            apc_delete($_POST['email']);
-            return true;
-        }
-        return $booleenFetch;
+        $tokenApc = apc_fetch($email, $booleenFetch);
+        return $booleenFetch && $tokenApc == $token;
+    }
+
+    public static function supprimerToken($email)
+    {
+        apc_delete($email);
     }
 }
