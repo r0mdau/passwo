@@ -1,4 +1,6 @@
 <?php
+require_once(__DIR__ . '/settings.php');
+
 function loadDir($dir){
     if ($dh = opendir($dir)) {
         while (($file = readdir($dh)) !== false) {

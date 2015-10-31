@@ -4,29 +4,29 @@ $_SESSION = array();
 
 require_once('autoload.php');
 
-if(
-    isset($_POST['email']) && !empty($_POST['email']) &&
-    isset($_POST['password']) && !empty($_POST['password']) &&
-    isset($_POST['pin']) && !empty($_POST['pin'])
-){
-    $crypted = array(
+if (Controller::formulaireEstValide()) {
+    $donneesCryptees = array(
         'email' => Hash::whirlpool($_POST['email']),
         'password' => Hash::whirlpool($_POST['password']),
         'pin' => Hash::whirlpool($_POST['pin'])
     );
 
-    if(Data::userExist($crypted)){
+    if (Modele::utilisateurActifExiste($donneesCryptees)) {
         $_SESSION = array(
             'dateLogin' => new DateTime(),
             'email' => $_POST['email'],
             'password' => $_POST['password'],
             'pin' => $_POST['pin'],
-            'hash' => $crypted
+            'hash' => $donneesCryptees
         );
-        header('Location: /yo.php');
-        exit;
-    }else{
-        $userCreated = Data::createUser($crypted);
+        Ordonnanceur::redirigerVers('/administrer');
+    } else {
+        if (Ordonnanceur::creerCompte($donneesCryptees, $_POST['email'])) {
+            $utilisateurCree = true;
+            $_POST = array();
+        } else {
+
+        }
     }
 }
 ?>
@@ -35,7 +35,7 @@ if(
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Passwho</title>
+    <title><?= _APP_NOM_ ?></title>
     <meta name="description" content="Web Password Manager">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -52,17 +52,19 @@ if(
 <div class="container">
     <div class="row">
         <form class="col s6 offset-s3" method="post">
-            <h3>P/\5$W||0</h3>
+            <h3><?= _APP_NOM_ ?></h3>
+
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="email" type="email" name="email" class="validate">
-                    <label for="email">Email</label>
+                    <input id="email" type="email" name="email"
+                           class="validate" <?= isset($_POST['email']) && !empty($_POST['email']) ? ' value="' . $_POST['email'] . '" ' : '' ?>>
+                    <label for="email">Adresse Email</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
                     <input id="password" type="password" name="password" class="validate">
-                    <label for="password">Password</label>
+                    <label for="password">Mot de passe</label>
                 </div>
             </div>
             <div class="row">
@@ -72,11 +74,11 @@ if(
                 </div>
             </div>
             <div class="row">
-                <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                <button class="btn waves-effect waves-light" type="submit" name="action">Envoyer
                     <i class="material-icons right">send</i>
                 </button>
                 <?php
-                if(isset($userCreated) && $userCreated) echo "<p>Compte créé, vérifiez vos mails</p>"
+                if (isset($utilisateurCree) && $utilisateurCree) echo "<p>Compte créé, vérifiez vos mails</p>"
                 ?>
             </div>
         </form>
