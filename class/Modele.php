@@ -15,13 +15,12 @@ class Modele
         self::connect();
         $req = self::$bdd->prepare('SELECT id FROM utilisateur WHERE email = :email AND password = :password AND pin = :pin AND estActif = 1');
 
-        $req->execute(array(
+        $etat = $req->execute(array(
             'email' => $data['email'],
             'password' => $data['password'],
             'pin' => $data['pin']
         ));
-        $results = $req->fetchAll();
-        return empty($results) ? false : true;
+        return $etat && $req->rowCount() == 1;
     }
 
     public static function activerUtilisateur($data)
