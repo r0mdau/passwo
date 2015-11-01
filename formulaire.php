@@ -7,7 +7,7 @@
     <meta name="description" content="Web Password Manager">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="lib/materialize/css/materialize.min.css">
 </head>
 <body>
