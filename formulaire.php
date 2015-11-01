@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="css/materialize.min.css">
+    <link rel="stylesheet" href="lib/materialize/css/materialize.min.css">
 </head>
 <body>
 <!--[if lt IE 8]>
@@ -50,7 +50,7 @@
     </div>
 </div>
 
-<script src="js/jquery-2.1.4.min.js"></script>
-<script src="js/materialize.min.js"></script>
+<script src="lib/jquery/jquery-2.1.4.min.js"></script>
+<script src="lib/materialize/js/materialize.min.js"></script>
 </body>
 </html>
