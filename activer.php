@@ -11,11 +11,17 @@ if (Controller::tokenEstBienFormate($_GET['token']) && Controller::formulaireEst
             Token::supprimer($_POST['email']);
             Ordonnanceur::connexionReussie($_POST);
         } else {
-            Ordonnanceur::finDeTransaction('Les informations saisies dans le formulaire ne sont pas valides ou bien mauvais token associé à cet utilisateur.');
+            Ordonnanceur::finDeTransaction('
+                Causes possibles :
+                <ul>
+                    <li>Les informations saisies dans le formulaire ne sont pas valides</li>
+                    <li>Mauvais token associé à cet utilisateur.</li>
+                </ul>
+            ');
         }
     } else {
         Ordonnanceur::finDeTransaction('
-            Voici les causes possibles :
+            Causes possibles :
             <ul>
                 <li>Les informations saisies dans le formulaire ne sont pas valides</li>
                 <li>Mauvais token associé à cet utilisateur.</li>
