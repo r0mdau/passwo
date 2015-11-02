@@ -3,7 +3,7 @@ session_start();
 
 require_once('autoload.php');
 
-if (!isset($_SESSION['email'])) Ordonnanceur::redirigerVers('/');
+if (!isset($_SESSION['dateCreationSession']) || Controller::sessionExpiree()) Ordonnanceur::redirigerVers('/');
 ?>
 <!doctype html>
 <html class="no-js" lang="fr">

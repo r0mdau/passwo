@@ -9,3 +9,4 @@ define('_DB_PASSWORD_', 'root');
 define('_PASSWORD_TAILLE_REQUISE_', 1);
 define('_TOKEN_DUREE_VIE_', 900);
 define('_TOKEN_TAILLE_', 90);
+define('_SESSION_DUREE_VIE_', 'PT15M');

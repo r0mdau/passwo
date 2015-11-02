@@ -43,4 +43,11 @@ class Controller
     {
         apc_delete($email);
     }
+
+    public static function sessionExpiree()
+    {
+        $datePassee = new DateTime();
+        $datePassee->sub(new DateInterval(_SESSION_DUREE_VIE_));
+        return $_SESSION['dateCreationSession'] < $datePassee;
+    }
 }
