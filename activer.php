@@ -14,7 +14,7 @@ if (Controller::tokenEstBienFormate($_GET['token']) && Controller::formulaireEst
             Ordonnanceur::finDeTransaction('
                 Causes possibles :
                 <ul>
-                    <li>Les informations saisies dans le formulaire ne sont pas valides</li>
+                    <li>Les informations saisies dans le formulaire ne sont pas valides.</li>
                     <li>Mauvais token associé à cet utilisateur.</li>
                 </ul>
             ');
