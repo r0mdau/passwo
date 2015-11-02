@@ -4,13 +4,11 @@ $_SESSION = array();
 
 require_once('autoload.php');
 
-if (!Controller::tokenEstBienFormate()) Ordonnanceur::finDeTransaction('Token non valide.');
-
-if (Controller::tokenEstBienFormate() && Controller::formulaireEstValide()) {
+if (Controller::tokenEstBienFormate($_GET['token']) && Controller::formulaireEstValide($_POST)) {
     if (Controller::tokenVeritable($_POST['email'], $_GET['token'])) {
         $donneesCryptees = Ordonnanceur::genererDonneesHachees($_POST);
         if (Modele::activerUtilisateur($donneesCryptees)) {
-            Controller::supprimerToken($_POST['email']);
+            Token::supprimer($_POST['email']);
             Ordonnanceur::connexionReussie($_POST);
         } else {
             Ordonnanceur::finDeTransaction('Les informations saisies dans le formulaire ne sont pas valides ou bien mauvais token associé à cet utilisateur.');

@@ -4,10 +4,9 @@ class Mailer
 {
     public static function envoyerPourCreation($email)
     {
-        $token = bin2hex(mcrypt_create_iv(256, MCRYPT_DEV_URANDOM));
-        $token = substr($token, rand(1, 255), _TOKEN_TAILLE_);
+        $token = Token::creer();
+        Token::persister($email, $token);
 
-        apc_store($email, $token, _TOKEN_DUREE_VIE_);
         $sujet = 'Activation de votre compte';
         $enTete = array(
             "MIME-Version: 1.0",

@@ -2,14 +2,14 @@
 
 class Controller
 {
-    public static function formulaireEstValide()
+    public static function formulaireEstValide($donnees)
     {
-        return isset($_POST['email']) && !empty($_POST['email']) &&
-        isset($_POST['password']) && !empty($_POST['password']) &&
-        isset($_POST['pin']) && !empty($_POST['pin']) &&
-        self::mailEstValide($_POST['email']) &&
-        self::passwordEstValide($_POST['password']) &&
-        self::pinEstValide($_POST['pin']);
+        return isset($donnees['email']) && !empty($donnees['email']) &&
+        isset($donnees['password']) && !empty($donnees['password']) &&
+        isset($donnees['pin']) && !empty($donnees['pin']) &&
+        self::mailEstValide($donnees['email']) &&
+        self::passwordEstValide($donnees['password']) &&
+        self::pinEstValide($donnees['pin']);
     }
 
     public static function mailEstValide($email)
@@ -27,21 +27,16 @@ class Controller
         return preg_match('/^[0-9]{4}$/', $pin);
     }
 
-    public static function tokenEstBienFormate()
+    public static function tokenEstBienFormate($token)
     {
-        return isset($_GET['token']) && !empty($_GET['token']) && preg_match('/^[a-z0-9]{'._TOKEN_TAILLE_.'}$/i', $_GET['token']);
+        return isset($token) && !empty($token) && preg_match('/^[a-z0-9]{' . _TOKEN_TAILLE_MIN_ . ',' . _TOKEN_TAILLE_MAX_ . '}$/i', $token);
     }
 
     public static function tokenVeritable($email, $token)
     {
         $booleenFetch = false;
-        $tokenApc = apc_fetch($email, $booleenFetch);
+        $tokenApc = Token::recuperer($email, $booleenFetch);
         return $booleenFetch && $tokenApc == $token;
-    }
-
-    public static function supprimerToken($email)
-    {
-        apc_delete($email);
     }
 
     public static function sessionExpiree()
