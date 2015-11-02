@@ -1,16 +1,16 @@
 <?php
 session_start();
 
-require_once('autoload.php');
+require_once('../autoload.php');
 $carte = Vue::genererCarte();
 $_SESSION = array();
 
 if (Controller::formulaireEstValide($_POST)) {
     Ordonnanceur::supprimerComptesInactifs();
-    $donneesCryptees = Ordonnanceur::genererDonneesHachees($_POST);
-    if (Modele::utilisateurActifExiste($donneesCryptees)) {
-        Ordonnanceur::connexionReussie($_POST);
-    } else if (Ordonnanceur::creerCompte($donneesCryptees, $_POST['email'])) {
+    $donneesChiffrees = Ordonnanceur::genererDonneesHachees($_POST);
+    if (Modele::utilisateurActifExiste($donneesChiffrees)) {
+        Ordonnanceur::connexionReussie($_POST, $donneesChiffrees);
+    } else if (Ordonnanceur::creerCompte($donneesChiffrees, $_POST['email'])) {
         Ordonnanceur::finDeTransaction('Votre compte a été créé.<br>Nous vous avons envoyé un email, veuillez suivre les instructions de celui-ci.', 'Success');
     } else {
         Ordonnanceur::finDeTransaction('

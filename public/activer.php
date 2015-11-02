@@ -2,14 +2,14 @@
 session_start();
 $_SESSION = array();
 
-require_once('autoload.php');
+require_once('../autoload.php');
 
 if (Controller::tokenEstBienFormate($_GET['token']) && Controller::formulaireEstValide($_POST)) {
     if (Controller::tokenVeritable($_POST['email'], $_GET['token'])) {
-        $donneesCryptees = Ordonnanceur::genererDonneesHachees($_POST);
-        if (Modele::activerUtilisateur($donneesCryptees)) {
+        $donneesChiffrees = Ordonnanceur::genererDonneesHachees($_POST);
+        if (Modele::activerUtilisateur($donneesChiffrees)) {
             Token::supprimer($_POST['email']);
-            Ordonnanceur::connexionReussie($_POST);
+            Ordonnanceur::connexionReussie($_POST, $donneesChiffrees);
         } else {
             Ordonnanceur::finDeTransaction('
                 Causes possibles :

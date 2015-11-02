@@ -29,6 +29,11 @@ class Vue
             </button>';
     }
 
+    public static function genererBoutonAjouter()
+    {
+        return self::genererBouton('Ajouter', 'green');
+    }
+
     public static function genererBoutonIndex()
     {
         return self::genererBouton('Connexion');

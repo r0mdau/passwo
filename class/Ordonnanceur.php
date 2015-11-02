@@ -22,18 +22,20 @@ class Ordonnanceur
     {
         return array(
             'email' => Hash::whirlpool($data['email']),
-            'password' => Hash::whirlpool($data['password']),
+            'motDePasse' => Hash::whirlpool($data['motDePasse']),
             'pin' => Hash::whirlpool($data['pin'])
         );
     }
 
-    public static function connexionReussie($data)
+    public static function connexionReussie($data, $donneesChiffrees)
     {
         $_SESSION = array(
+            'id' => Modele::recupererIdentifiantUtilisateur($donneesChiffrees['email']),
             'dateCreationSession' => new DateTime(),
             'email' => $data['email'],
-            'password' => $data['password'],
-            'pin' => $data['pin']
+            'motDePasse' => $data['motDePasse'],
+            'pin' => $data['pin'],
+            'chiffree' => $donneesChiffrees
         );
         self::redirigerVers('/administrer');
     }
@@ -53,5 +55,20 @@ class Ordonnanceur
     {
         header('Location: ' . $uri);
         exit;
+    }
+
+    public static function ajouterMotDePasse($donnees)
+    {
+        Modele::ajouterMotDePasse(
+            $_SESSION['id'],
+            Chiffrement::chiffrer($donnees['libelle']),
+            Chiffrement::chiffrer($donnees['motDePasse'])
+        );
+        self::redirigerVers('/administrer');
+    }
+
+    public static function supprimerMotDePasse($identifiantMotDePasse)
+    {
+        Modele::supprimerMotDePasse($_SESSION['id'], $identifiantMotDePasse);
     }
 }

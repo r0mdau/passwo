@@ -5,11 +5,17 @@ class Controller
     public static function formulaireEstValide($donnees)
     {
         return isset($donnees['email']) && !empty($donnees['email']) &&
-        isset($donnees['password']) && !empty($donnees['password']) &&
+        isset($donnees['motDePasse']) && !empty($donnees['motDePasse']) &&
         isset($donnees['pin']) && !empty($donnees['pin']) &&
         self::mailEstValide($donnees['email']) &&
-        self::passwordEstValide($donnees['password']) &&
+        self::motDePasseEstValide($donnees['motDePasse']) &&
         self::pinEstValide($donnees['pin']);
+    }
+
+    public static function formulaireAjoutMotDePasseEstValide($donnees)
+    {
+        return isset($donnees['libelle']) && !empty($donnees['libelle']) &&
+        isset($donnees['motDePasse']) && !empty($donnees['motDePasse']);
     }
 
     public static function mailEstValide($email)
@@ -17,9 +23,9 @@ class Controller
         return filter_var($email, FILTER_VALIDATE_EMAIL);
     }
 
-    public static function passwordEstValide($password)
+    public static function motDePasseEstValide($motDePasse)
     {
-        return strlen($password) >= _PASSWORD_TAILLE_REQUISE_;
+        return strlen($motDePasse) >= _MOTDEPASSE_TAILLE_REQUISE_;
     }
 
     public static function pinEstValide($pin)

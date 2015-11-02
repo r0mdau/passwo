@@ -32,9 +32,9 @@
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="password" type="password" name="password" class="validate"
-                           placeholder="<?= _PASSWORD_TAILLE_REQUISE_ ?> caractères mininmum">
-                    <label for="password">Mot de passe</label>
+                    <input id="motDePasse" type="password" name="motDePasse" class="validate"
+                           placeholder="<?= _MOTDEPASSE_TAILLE_REQUISE_ ?> caractères mininmum">
+                    <label for="motDePasse">Mot de passe</label>
                 </div>
             </div>
             <div class="row">
