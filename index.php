@@ -23,7 +23,5 @@ if (Controller::formulaireEstValide($_POST)) {
     }
 }
 
-$bouton = '<button class="btn waves-effect waves-light" type="submit" name="action">Connexion
-                <i class="material-icons right">send</i>
-            </button>';
+$bouton = Vue::genererBoutonIndex();
 require_once('formulaire.php');

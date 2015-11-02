@@ -31,7 +31,5 @@ if (Controller::tokenEstBienFormate($_GET['token']) && Controller::formulaireEst
     }
 }
 
-$bouton = '<button class="btn waves-effect waves-light green" type="submit" name="action">Activer
-                <i class="material-icons right">send</i>
-            </button>';
+$bouton = Vue::genererBoutonActiver();
 require_once('formulaire.php');

@@ -20,4 +20,22 @@ class Vue
             ';
         }
         return $html;
-    }}
+    }
+
+    private static function genererBouton($nom, $couleur = '')
+    {
+        return '<button class="btn waves-effect waves-light '.$couleur.'" type="submit" name="action">'.$nom.'
+                <i class="material-icons right">send</i>
+            </button>';
+    }
+
+    public static function genererBoutonIndex()
+    {
+        return self::genererBouton('Connexion');
+    }
+
+    public static function genererBoutonActiver()
+    {
+        return self::genererBouton('Activer', 'green');
+    }
+}
