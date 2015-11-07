@@ -25,6 +25,13 @@ if (!isset($_SESSION['dateCreationSession']) || Controller::sessionExpiree()) Or
 <![endif]-->
 <ul id="nav-mobile" class="side-nav fixed" style="width: 240px;">
     <li class="bold"><h3><?= _APP_NOM_ ?></h3></li>
+    <li>
+        <div class="input-field">
+            <input id="search" type="search">
+            <label for="search"><i class="material-icons">search</i></label>
+            <i class="material-icons">close</i>
+        </div>
+    </li>
     <li class="bold"><a href="/" class="waves-effect waves-teal red-text text-accent-4">Déconnexion</a></li>
 </ul>
 <div class="row">
@@ -47,7 +54,7 @@ if (!isset($_SESSION['dateCreationSession']) || Controller::sessionExpiree()) Or
 </div>
 <div class="row">
     <div class="col s10 offset-s2">
-        <table class="bordered highlight">
+        <table id="tableau" class="bordered highlight">
             <thead>
             <tr>
                 <th>Libelle</th>
@@ -76,8 +83,21 @@ if (!isset($_SESSION['dateCreationSession']) || Controller::sessionExpiree()) Or
 
 <script src="lib/jquery/jquery-2.1.4.min.js"></script>
 <script src="lib/materialize/js/materialize.min.js"></script>
+<script src="lib/jquery/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready(function () {
+        var tableau = $('#tableau').DataTable({
+            "paging":   false,
+            "order": [[ 0, "asc" ]],
+            "info":     false
+        });
+
+        $('#tableau_filter').hide();
+
+        $('#search').keyup(function(){
+            tableau.search(this.value).draw();
+        });
+
         $('.visibility').click(function () {
             if ($(this).children().html() == 'visibility') {
                 $(this).parent().prev().children().attr({'type': 'text'});
@@ -87,6 +107,7 @@ if (!isset($_SESSION['dateCreationSession']) || Controller::sessionExpiree()) Or
                 $(this).children().html('visibility');
             }
         });
+
     });
 </script>
 </body>
