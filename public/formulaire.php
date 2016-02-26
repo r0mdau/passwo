@@ -4,10 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title><?= _APP_NOM_ ?></title>
-    <meta name="description" content="Web Password Manager">
+    <meta name="description" content="Gestionnaire de mots de passe">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="lib/google/icon.css" rel="stylesheet">
     <link rel="stylesheet" href="lib/materialize/css/materialize.min.css">
 </head>
 <body>
