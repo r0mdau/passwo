@@ -23,6 +23,12 @@ class Controller
         return filter_var($email, FILTER_VALIDATE_EMAIL);
     }
 
+    public static function motDePasseConfirme($donnees)
+    {
+        return isset($donnees['confirmationMotDePasse']) &&
+        $donnees['motDePasse'] == $donnees['confirmationMotDePasse'];
+    }
+
     public static function motDePasseEstValide($motDePasse)
     {
         return strlen($motDePasse) >= _MOTDEPASSE_TAILLE_REQUISE_;

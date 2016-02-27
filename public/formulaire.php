@@ -36,6 +36,13 @@
                     <label for="motDePasse">Mot de passe</label>
                 </div>
             </div>
+            <div class="row" style="display: none">
+                <div class="input-field col s12">
+                    <input id="confirmationMotDePasse" type="password" name="confirmationMotDePasse" class="validate"
+                           placeholder="<?= _MOTDEPASSE_TAILLE_REQUISE_ ?> caractères mininmum">
+                    <label for="confirmationMotDePasse">Confirmation mot de passe</label>
+                </div>
+            </div>
             <div class="row">
                 <div class="input-field col s12">
                     <input id="pin" type="password" name="pin" class="validate" placeholder="4 chiffres">
@@ -44,12 +51,21 @@
             </div>
             <div class="row">
                 <?= $bouton ?>
+                <?= $boutonEnregistrement?>
             </div>
         </form>
     </div>
 </div>
-
 <script src="lib/jquery/jquery-2.1.4.min.js"></script>
 <script src="lib/materialize/js/materialize.min.js"></script>
+<script>
+    $('document').ready(function(){
+        $('#inscription').click(function(){
+            $('#confirmationMotDePasse').parent().parent().show();
+            $(this).hide();
+            $('button').text('Enregistrement');
+        });
+    });
+</script>
 </body>
 </html>

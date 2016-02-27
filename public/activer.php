@@ -32,4 +32,5 @@ if (Controller::tokenEstBienFormate($_GET['token']) && Controller::formulaireEst
 }
 
 $bouton = Vue::genererBoutonActiver();
+$boutonEnregistrement = '';
 require_once('formulaire.php');
